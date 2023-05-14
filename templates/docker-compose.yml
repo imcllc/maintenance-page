@@ -1,0 +1,10 @@
+version: '3.7'
+
+services:
+  app:
+    image: iagllctech/maintenance:latest
+    environment:
+      SITE_NAME: "My site is"
+      STATUS: "Please visit our <a href=\"\">status dashboard</a> for more information."
+    ports:
+      - '80:80'

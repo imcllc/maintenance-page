@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: "{{ your_namespace }}"
+  name: maintenance-env
+data:
+  SITE_NAME: "My site is"
+  STATUS: "Please visit our <a href=\"\">status dashboard</a> for more information."
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: maintenance
+  namespace: "{{ your_namespace }}"
+  labels:
+    name: maintenance
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: maintenance
+  template:
+    metadata:
+      labels:
+        app: maintenance
+    spec:
+      containers:
+      - name: maintenance
+        image: iagllctech/maintenance:latest
+        imagePullPolicy: Always
+        envFrom:
+        - configMapRef:
+            name: maintenance-env
+        ports:
+        - containerPort: 80
+          name: web
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: "{{ your_namespace }}"
+  name: maintenance
+spec:
+  selector:
+    app: maintenance
+  ports:
+    - port: 80
+      targetPort: 80
