@@ -1,4 +1,4 @@
-# IAG Benefits, LLC Maintenane Container (iagllctech/maintenance)
+# IAG Benefits, LLC Maintenance Container (iagllctech/maintenance)
 
 This repository provides a mobile friendly maintenance page that appears for every url.
 
